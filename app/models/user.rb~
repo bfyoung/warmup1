@@ -1,0 +1,35 @@
+class User < ActiveRecord::Base
+  attr_accessible :count, :password, :user
+
+  def self.login(user, password)
+    @user = User.find_by_user(user)
+    if not @user
+      return -1
+    elsif not @user.password == password
+      return -1
+    else
+      @user.count = @user.count + 1
+      @user.save
+      return @user.count
+    end
+  end
+
+  def self.add(user, password)
+    if user == '' or user.length > 128 #user field is empty
+      return -3
+    elsif User.find_by_user(user) #user already exists
+      return -2
+    elsif password.length > 128
+      return -4
+    else
+      @user = User.create(:user => user, :password => password, :count => 1)
+      return 1
+    end
+  end
+
+  def self.resetFixture
+    User.delete_all
+    return 1
+  end
+
+end
