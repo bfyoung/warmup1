@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :count, :password, :user
 
   def self.login(user, password)
-    @user = User.find_by_user(user)
+    @user = User.find(user)
     if not @user
       return -1
     elsif not @user.password == password
