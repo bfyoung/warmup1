@@ -40,8 +40,8 @@ class UsersController < ApplicationController
 
   # POST /TESTAPI/unitTests
   def userUnitTests
-    # @unit_test_output = `rake test:units`
-    @unit_test_output = open("|rake test:units")
+    @unit_test_output = `rake test:units`
+    # @unit_test_output = open("|rake test:units")
     #print "UNITTESTOUTPUT"+@unit_test_output
     #we need to find the line that starts with "[Number] tests"
     @results = ''
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     # @failures = Regexp.last_match[0].to_i
     # @failures = 0
     # render :json => { 'totalTests' => @total_tests, 'nrFailed' => @failures, 'output' => @results }
-    render :json => { 'totalTests' => 0, 'nrFailed' => 0, 'output' => @results }
+    render :json => { 'totalTests' => 0, 'nrFailed' => 0, 'output' => @unit_test_output }
   end
 
   # GET /users/1
