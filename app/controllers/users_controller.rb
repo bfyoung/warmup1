@@ -40,9 +40,9 @@ class UsersController < ApplicationController
 
   # POST /TESTAPI/unitTests
   def userUnitTests
-    @unit_test_output = %x(rake test TEST=test/unit/user_test.rb)
-    # @unit_test_output = open("|rake test:units")
-    #print "UNITTESTOUTPUT"+@unit_test_output
+    # @unit_test_output = %x(rake test TEST=test/unit/user_test.rb)
+    @unit_test_output = %x(ruby -ltest test/unit/user_test.rb)
+    # @unit_test_output = open("../../unit_test_output")
     #we need to find the line that starts with "[Number] tests"
     @results = ''
     @unit_test_output.each_line do |li|
