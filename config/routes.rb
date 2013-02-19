@@ -3,7 +3,8 @@ Myapp::Application.routes.draw do
     match 'users/add' => 'users#userAdd', :via => [:post]
     match 'TESTAPI/resetFixture/' => 'users#userResetFixture', :via => [:post]
     match 'TESTAPI/unitTests/' => 'users#userUnitTests', :via => [:post]
-  #resources :users
+
+  resources :users
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
