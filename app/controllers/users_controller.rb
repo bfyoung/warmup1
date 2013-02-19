@@ -40,13 +40,15 @@ class UsersController < ApplicationController
 
   # POST /TESTAPI/unitTests
   def userUnitTests
-    @unit_test_output = `rake test:units`
+    # @unit_test_output = `rake test:units`
+    @unit_test_output = open("|rake test:units")
     #print "UNITTESTOUTPUT"+@unit_test_output
     #we need to find the line that starts with "[Number] tests"
     @results = ''
     @unit_test_output.each_line do |li|
       if (li[/^[0-9]+ tests.*/])
         @results = li
+        break
       end
     end
     /[0-9]+ tests/ =~ @results
@@ -57,7 +59,7 @@ class UsersController < ApplicationController
     /[0-9]+/ =~ Regexp.last_match[0]
     @failures = Regexp.last_match[0].to_i
     # @failures = 0
-    render :json => { 'totalTests' => @total_tests, 'nrFailed' => @failures, 'output' => @unit_test_output }
+    render :json => { 'totalTests' => @total_tests, 'nrFailed' => @failures, 'output' => @results }
   end
 
   # GET /users/1
